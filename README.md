@@ -524,7 +524,7 @@ The biggest offender here is the bare `except: pass` clause. Never use these. Su
 
 The Way to logging detail exception information in python3 and python2.
 
-# python3
+#### python3
 
 ```python
 import traceback
@@ -540,7 +540,7 @@ except Exception as ex:
   log_exception(ex)
 ```
 
-# python2
+#### python2
 
 ``` python
 import sys
