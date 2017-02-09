@@ -520,6 +520,44 @@ Don't be afraid to add line-comments with `#`. Don't go overboard on these or ov
 
 The biggest offender here is the bare `except: pass` clause. Never use these. Suppressing **all** exceptions is simply dangerous. Scope your exception handling to single lines of code, and always scope your `except` handler to a specific type. Also, get comfortable with the `logging` module and `log.exception(...)`.
 
+### Best way to logging exception
+
+The Way to logging detail exception information in python3 and python2.
+
+# python3
+
+```python
+import traceback
+
+def log_exception(ex):
+  tb_line = traceback.format_exception(ex.__class__, ex, ex.__traceback__)
+  tb_text = ''.join(tb_line)
+  exception_logger.log(tb_text)
+
+try:
+   do_someting()
+except Exception as ex:
+  log_exception(ex)
+```
+
+# python2
+
+``` python
+import sys
+import traceback
+
+def log_exception(ex, ex_traceback):
+  tb_line = traceback.format_exception(ex.__class__, ex, ex_traceback)
+  tb_text = ''.join(tb_line)
+  exception_logger.log(tb_text)
+
+try:
+   do_someting()
+except Exception as ex:
+  _, _, ex_traceback = sys.exc_info()
+  log_exception(ex, ex_traceback)
+```
+
 ### If the implementation is hard to explain, it's a bad idea
 
 This is a general software engineering principle -- but applies very well to Python code. Most Python functions and objects can have an easy-to-explain implementation. If it's hard to explain, it's probably a bad idea. Usually you can make a hard-to-explain function easier-to-explain via "divide and conquer" -- split it into several functions.
